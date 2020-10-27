@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  webapp:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - 5010:80
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  nginx:
+    ports:
+      - 4432:4432
+    volumes:
+      - ./inf/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./inf/nginx/proxy.conf:/etc/nginx/proxy.conf
+      - ./inf/nginx/development.crt:/etc/ssl/server.crt
+      - ./inf/nginx/development.key:/etc/ssl/server.key
+      - ./cca_root_ca.cer:/etc/nginx/client_certs/client.crt

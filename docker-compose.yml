@@ -1,0 +1,13 @@
+version: '3.4'
+
+services:
+  webapp:
+    image: ${DOCKER_REGISTRY-}webapp
+    build:
+      context: .
+      dockerfile: src/WebApp/Dockerfile
+
+  nginx:
+    image: nginx
+    depends_on:
+      - webapp
